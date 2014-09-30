@@ -8,4 +8,4 @@ cat > /usr/local/nginx/html/connection.properties <<EOF
 }
 EOF
 
-nginx
+nginx -g "daemon off;"
