@@ -53,6 +53,43 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.cluster = {};
         $rootScope.activeCluster = {};
         $scope.clusterCreationForm = {};
+        $scope.blueprintSelectionPaneShow = false;
+        $scope.manualSelectionPaneShow = true;
+        $scope.detailsShow = true;
+        $scope.periscopeShow = false;
+        $scope.metricsShow = false;
+
+        $scope.showManualTab = function () {
+            $scope.blueprintSelectionPaneShow = false;
+            $scope.manualSelectionPaneShow = true;
+        }
+
+        $scope.showBlueprintTab = function () {
+            $scope.blueprintSelectionPaneShow = true;
+            $scope.manualSelectionPaneShow = false;
+        }
+
+        $scope.showDetails = function () {
+            $scope.detailsShow = true;
+            $scope.periscopeShow = false;
+            $scope.metricsShow = false;
+        }
+
+        $scope.showPeriscope = function () {
+            $scope.detailsShow = false;
+            $scope.periscopeShow = true;
+            $scope.metricsShow = false;
+        }
+
+        $scope.showMetrics = function () {
+            $scope.detailsShow = false;
+            $scope.periscopeShow = false;
+            $scope.metricsShow = true;
+        }
+
+        $scope.changeActiveCloudPlatform = function(platform) {
+            $scope.activecloudPlatform = platform;
+        }
 
         $scope.createCluster = function () {
             var blueprint = $filter('filter')($rootScope.blueprints, {id: $scope.cluster.blueprintId}, true)[0];
@@ -68,7 +105,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 return;
             }
 
-            $scope.cluster.credentialId = $rootScope.activeCredential.id;
+            //$scope.cluster.credentialId = $rootScope.activeCredential.id;
             UluwatuCluster.save($scope.cluster, function (result) {
                 $rootScope.clusters.push(result);
                 $scope.cluster = {};

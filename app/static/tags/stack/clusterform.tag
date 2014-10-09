@@ -26,24 +26,130 @@
                             </div>
                         </div>
                     </div>
+
+                    <hr class="form-group-separator">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="selectHadoopDistro">select Hadoop distro <i class="fa fa-check fa-fw hidden"></i></label>
+                        <div class="col-sm-9 ">
+                            <div class="btn-segmented-control" id="selectHadoopDistro" data-next="#selectRuntime">
+                                <div class="btn-group btn-group-justified">
+                                    <a  class="btn btn-default" role="button">HDP</a>
+                                    <a  class="btn btn-default" role="button">CDH</a>
+                                    <a  class="btn btn-default" role="button">AH</a>
+                                </div>
+                            </div><!-- .btn-segmented-control -->
+                        </div><!-- .col-sm-9 -->
+                    </div><!-- .form-group -->
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="selectRuntime">select runtime <i class="fa fa-check fa-fw hidden"></i></label>
+                        <div class="col-sm-offset-1 col-sm-8 collapse" id="selectRuntime">
+                            <div class="btn-segmented-control" data-next="#selectServiceBlock">
+                                <div class="btn-group btn-group-sm btn-group-justified">
+                                    <a  class="btn btn-default" role="button">MR2</a>
+                                    <a  class="btn btn-default" role="button">Tez</a>
+                                    <a  class="btn btn-default" role="button">Spark</a>
+                                </div>
+                            </div><!-- .btn-segmented-control -->
+                        </div><!-- .col-sm-9 -->
+                    </div><!-- .form-group -->
+
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="selectService">select services <i class="fa fa-check fa-fw hidden"></i></label>
+
+                        <div class="col-sm-offset-2 col-sm-7 collapse" id="selectServiceBlock">
+
+                            <div class="row"><div class="col-sm-12">
+
+                                <ul class="nav nav-pills nav-pills-sm nav-justified" role="tablist">
+                                    <li class="active"><a  role="tab" data-toggle="tab" ng-click="showManualTab()">manually</a></li>
+                                    <li><a  role="tab" data-toggle="tab" ng-click="showBlueprintTab()">from blueprint</a></li>
+                                </ul>
+
+                            </div></div>
+
+
+                            <div class="tab-content">
+
+                                <div class="tab-pane  fade in" id="servicePane" ng-show="manualSelectionPaneShow" ng-class="{ 'active': manualSelectionPaneShow }"><!-- service buttons -->
+
+                                    <div class="btn-segmented-control multiselect" id="selectService">
+                                        <div class="btn-group btn-group-sm btn-group-justified">
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">HDFS</a>
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">YARN</a>
+                                            <a class="btn btn-default" role="button">HBase</a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+                                            <a  class="btn btn-default" role="button">Hive</a>
+                                            <a  class="btn btn-default" role="button">ZooKeeper</a>
+                                            <a  class="btn btn-default" role="button">HCat</a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+                                            <a  class="btn btn-default" role="button">Ganglia</a>
+                                            <a  class="btn btn-default" role="button">Pig</a>
+                                            <a  class="btn btn-default" role="button">Nagios</a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
+                                            <a  class="btn btn-default" role="button">Sqoop</a>
+                                            <a  class="btn btn-default disabled" role="button">MySQL</a>
+                                            <a  class="btn btn-default" role="button">Spark</a>
+                                        </div>
+                                    </div><!-- .btn-segmented-control -->
+
+                                </div><!-- .tab-pane -->
+
+                                <div class="tab-pane fade in" id="blueprintPane" ng-show="blueprintSelectionPaneShow" ng-class="{ 'active': blueprintSelectionPaneShow }"><!-- blueprint select -->
+                                    <select class="form-control" id="selectBlueprint" ng-model="cluster.blueprintId"  required >
+                                        <option ng-repeat="blueprint in $root.blueprints | orderBy:'name'" data-value="{{blueprint.id}}" value="{{blueprint.id}}" id="{{blueprint.id}}">{{blueprint.name}}</option>
+                                    </select>
+
+                                </div><!-- .tab-pane -->
+                            </div><!-- .tab-content -->
+
+                        </div><!-- .col-sm-9 -->
+
+                    </div><!-- .form-group -->
+
+                    <hr class="form-group-separator">
+
+                    <div class="form-group">
+                        <label class="col-sm-3 control-label" for="selectCloud">select cloud provider <i class="fa fa-check fa-fw hidden"></i></label>
+                        <div class="col-sm-9">
+                            <div class="btn-segmented-control" id="selectCloud" data-next=".selectCredentialNTemplate">
+                                <div class="btn-group btn-group-justified"><!-- 3 buttons per row -->
+                                    <a class="btn btn-default" role="button" ng-click="changeActiveCloudPlatform('AWS')">AWS</a>
+                                    <a class="btn btn-default" role="button" ng-click="changeActiveCloudPlatform('AZURE')">Azure</a>
+                                </div>
+                                <div class="btn-group btn-group-justified"><!-- 3 buttons per row -->
+                                    <a class="btn btn-default" role="button" ng-click="changeActiveCloudPlatform('GCC')">Google Cloud</a>
+                                    <a class="btn btn-default" role="button" disabled ng-click="changeActiveCloudPlatform('DIGITAL_OCEAN')">Digital Ocean</a>
+                                </div>
+                            </div><!-- .btn-segmented-control -->
+                        </div><!-- .col-sm-9 -->
+                    </div><!-- .form-group -->
+
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="selectTemplate">Template</label>
                         <div class="col-sm-9">
                             <select class="form-control" id="selectTemplate" ng-model="cluster.templateId" required >
-                                <option ng-repeat="template in $root.templates | orderBy:'name'" data-value="{{template.id}}" value="{{template.id}}" id="{{template.id}}" ng-if="template.cloudPlatform == activeCredential.cloudPlatform">{{template.name}}
+                                <option ng-repeat="template in $root.templates | orderBy:'name'" data-value="{{template.id}}" value="{{template.id}}" id="{{template.id}}" ng-if="template.cloudPlatform == activecloudPlatform">{{template.name}}
                                 </option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group">
-                        <label class="col-sm-3 control-label" for="selectBlueprint">Blueprint</label>
+                        <label class="col-sm-3 control-label" for="selectCredential">Credential</label>
                         <div class="col-sm-9">
-                            <select class="form-control" id="selectBlueprint" ng-model="cluster.blueprintId"  required >
-                                <option ng-repeat="blueprint in $root.blueprints | orderBy:'name'" data-value="{{blueprint.id}}" value="{{blueprint.id}}" id="{{blueprint.id}}">{{blueprint.name}}
+                            <select class="form-control" id="selectCredential" ng-model="cluster.credentialId" required >
+                                <option ng-repeat="credential in $root.credentials | orderBy:'name'" data-value="{{credential.id}}" value="{{credential.id}}" id="{{credential.id}}" ng-if="credential.cloudPlatform == activecloudPlatform">{{credential.name}}
                                 </option>
                             </select>
                         </div>
                     </div>
+
                     <div class="form-group" >
                         <label class="col-sm-3 control-label" for="emailneeded">Email notification when cluster is provisioned</label>
                         <div class="col-sm-9">

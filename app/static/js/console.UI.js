@@ -171,6 +171,46 @@ function addClusterFormJQEventListeners() {
         $jq('#sort-clusters-btn').removeClass('disabled');
         $jq("#notification-n-filtering").prop("disabled", false);
     });
+
+    $jq('.btn-segmented-control a').click(function (e) {
+        var selected = 'btn-info';
+        var active = 'btn-default';
+        var control = $jq(this).parent().parent();
+        e.preventDefault();
+        e.stopPropagation();
+        if (!control.hasClass('multiselect')) {
+            control.find('a').each(function () {
+                $jq(this).removeClass(selected).addClass(active);
+            });
+            $jq(this).removeClass(active).addClass(selected);
+        } else {
+            if ($jq(this).hasClass(active)) {
+                $jq(this).removeClass(active).addClass(selected);
+            } else {
+                $jq(this).removeClass(selected).addClass(active);
+            }
+        }
+        // show next selector block
+        var nextSelector = control.attr('data-next');
+        if (nextSelector) {
+            $jq(nextSelector).collapse('show');
+            $jq(nextSelector).on('shown.bs.collapse', function (e) {
+                e.stopPropagation();
+                // scroll page
+                scrollToPanelTop($jq(this).parent().prev().prev());
+            });
+        }
+    });
+
+    function scrollToPanelTop(panel) {
+        var offset = panel.offset().top;
+        if (offset) {
+            $jq('html,body').animate({
+                scrollTop: offset - 64	// - height of cluster toolbar
+            }, 500);
+        }
+    };
+
 }
 
 function addActiveClusterJQEventListeners() {
