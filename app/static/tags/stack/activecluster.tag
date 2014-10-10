@@ -30,7 +30,7 @@
 
                             <form class="form-horizontal" role="document"><!-- role: 'document' - non-editable "form" -->
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label" for="sl_ambariServerIp">Ambari server adress</label>
+                                    <label class="col-sm-3 control-label" for="sl_ambariServerIp">Management adress</label>
 
                                     <div class="col-sm-9">
                                         <p id="sl_ambariServerIp" class="form-control-static">

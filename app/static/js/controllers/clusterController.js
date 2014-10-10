@@ -76,6 +76,9 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 try {
                     var bp = $filter('filter')($rootScope.blueprints, {'multi-node-hdfs-yarn': $rootScope.blueprints.blueprintName })[0];
                     if (bp) {
+                        if (!$scope.cluster) {
+                            initCluster();
+                        }
                         $scope.cluster.blueprintId = bp.id;
                     }
                 } catch (err) {
@@ -215,18 +218,18 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         }
 
         $scope.stopCluster = function (activeCluster) {
-            var newStatus = {"status":"STOPPED"};
-            Cluster.update({id: activeCluster.id}, newStatus, function(success){
-                GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
+            var newStatus = {"status": "STOPPED"};
+            Cluster.update({id: activeCluster.id}, newStatus, function (success) {
+                GlobalStack.update({id: activeCluster.id}, newStatus, function (result) {
                     $rootScope.activeCluster.status = "STOP_REQUESTED";
                 });
             });
         }
 
         $scope.startCluster = function (activeCluster) {
-            var newStatus = {"status":"STARTED"};
-            GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
-                Cluster.update({id: activeCluster.id}, newStatus, function(success){
+            var newStatus = {"status": "STARTED"};
+            GlobalStack.update({id: activeCluster.id}, newStatus, function (result) {
+                Cluster.update({id: activeCluster.id}, newStatus, function (success) {
                     $rootScope.activeCluster.status = "START_REQUESTED";
                 });
             });
@@ -235,10 +238,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
 
         function statusChangeListener(event, cluster) {
-          if(cluster.status == "STOPPED") {
-              $scope.startCluster(cluster);
-          } else if(cluster.status == "AVAILABLE") {
-              $scope.stopCluster(cluster);
-          }
+            if (cluster.status == "STOPPED") {
+                $scope.startCluster(cluster);
+            } else if (cluster.status == "AVAILABLE") {
+                $scope.stopCluster(cluster);
+            }
         }
     }]);
