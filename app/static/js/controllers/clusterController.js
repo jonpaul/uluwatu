@@ -50,7 +50,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $rootScope.clusters = clusters;
         });
 
-        $scope.cluster = {};
+        $scope.cluster = initCluster();
         $rootScope.activeCluster = {};
         $scope.clusterCreationForm = {};
         $scope.blueprintSelectionPaneShow = false;
@@ -62,6 +62,23 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.hdpServiceListShow = false;
         $scope.cdhServiceListShow = false;
         $scope.ahServiceListShow = false;
+
+        function initCluster() {
+            $scope.cluster = {};
+        }
+
+        $scope.selectBlueprint = function () {
+            if ($rootScope.blueprints && !$scope.cluster.blueprintId) {
+                try {
+                    var bp = $filter('filter')($rootScope.blueprints, {'multi-node-hdfs-yarn': $rootScope.blueprints.blueprintName })[0];
+                    if (bp) {
+                        $scope.cluster.blueprintId = bp.id;
+                    }
+                } catch (err) {
+                    $scope.cluster.blueprintId = $rootScope.blueprints[0].id;
+                }
+            }
+        }
 
         $scope.showManualTab = function () {
             $scope.blueprintSelectionPaneShow = false;
@@ -91,25 +108,28 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $scope.metricsShow = true;
         }
 
-        $scope.showHdpServiceList = function() {
+        $scope.showHdpServiceList = function () {
             $scope.hdpServiceListShow = true;
             $scope.cdhServiceListShow = false;
             $scope.ahServiceListShow = false;
+            $scope.selectBlueprint();
         }
 
-        $scope.showCdhServiceList = function() {
+        $scope.showCdhServiceList = function () {
             $scope.hdpServiceListShow = false;
             $scope.cdhServiceListShow = true;
             $scope.ahServiceListShow = false;
+            $scope.selectBlueprint();
         }
 
-        $scope.showAhServiceList = function() {
+        $scope.showAhServiceList = function () {
             $scope.hdpServiceListShow = false;
             $scope.cdhServiceListShow = false;
             $scope.ahServiceListShow = true;
+            $scope.selectBlueprint();
         }
 
-        $scope.changeActiveCloudPlatform = function(platform) {
+        $scope.changeActiveCloudPlatform = function (platform) {
             $scope.activecloudPlatform = platform;
         }
 
@@ -130,7 +150,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             //$scope.cluster.credentialId = $rootScope.activeCredential.id;
             UluwatuCluster.save($scope.cluster, function (result) {
                 $rootScope.clusters.push(result);
-                $scope.cluster = {};
+                $scope.cluster = initCluster();
 
                 $scope.modifyStatusMessage($rootScope.error_msg.cluster_success1 + result.name + $rootScope.error_msg.cluster_success2);
                 $scope.modifyStatusClass("has-success");
@@ -143,7 +163,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $jq('#create-cluster-btn').removeClass('disabled');
                 $jq("#notification-n-filtering").prop("disabled", false);
                 $scope.clusterCreationForm.$setPristine();
-            }, function(failure) {
+            }, function (failure) {
                 $scope.modifyStatusMessage($rootScope.error_msg.cluster_failed + ": " + failure.data.message);
                 $scope.modifyStatusClass("has-error");
             });
@@ -154,7 +174,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $rootScope.clusters.splice($rootScope.templates.indexOf(cluster), 1);
                 $scope.modifyStatusMessage($rootScope.error_msg.cluster_delete_success1 + cluster.id + $rootScope.error_msg.cluster_delete_success2);
                 $scope.modifyStatusClass("has-success");
-            }, function (failure){
+            }, function (failure) {
                 $scope.modifyStatusMessage($rootScope.error_msg.cluster_delete_failed + ": " + failure.data.message);
                 $scope.modifyStatusClass("has-error");
             });
@@ -165,8 +185,8 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $rootScope.activeClusterBlueprint = $filter('filter')($rootScope.blueprints, { id: $rootScope.activeCluster.blueprintId })[0];
             $rootScope.activeClusterTemplate = $filter('filter')($rootScope.templates, {id: $rootScope.activeCluster.templateId })[0];
             $rootScope.activeClusterCredential = $filter('filter')($rootScope.credentials, {id: $rootScope.activeCluster.credentialId })[0];
-            $rootScope.activeCluster.cloudPlatform =  $rootScope.activeClusterCredential.cloudPlatform;
-            GlobalStack.get({ id: clusterId }, function(success) {
+            $rootScope.activeCluster.cloudPlatform = $rootScope.activeClusterCredential.cloudPlatform;
+            GlobalStack.get({ id: clusterId }, function (success) {
                     $rootScope.activeCluster.description = success.description;
                 }
             );
