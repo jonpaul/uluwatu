@@ -59,6 +59,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.periscopeShow = false;
         $scope.metricsShow = false;
 
+        $scope.hdpServiceListShow = false;
+        $scope.cdhServiceListShow = false;
+        $scope.ahServiceListShow = false;
+
         $scope.showManualTab = function () {
             $scope.blueprintSelectionPaneShow = false;
             $scope.manualSelectionPaneShow = true;
@@ -85,6 +89,24 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             $scope.detailsShow = false;
             $scope.periscopeShow = false;
             $scope.metricsShow = true;
+        }
+
+        $scope.showHdpServiceList = function() {
+            $scope.hdpServiceListShow = true;
+            $scope.cdhServiceListShow = false;
+            $scope.ahServiceListShow = false;
+        }
+
+        $scope.showCdhServiceList = function() {
+            $scope.hdpServiceListShow = false;
+            $scope.cdhServiceListShow = true;
+            $scope.ahServiceListShow = false;
+        }
+
+        $scope.showAhServiceList = function() {
+            $scope.hdpServiceListShow = false;
+            $scope.cdhServiceListShow = false;
+            $scope.ahServiceListShow = true;
         }
 
         $scope.changeActiveCloudPlatform = function(platform) {

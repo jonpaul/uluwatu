@@ -34,9 +34,9 @@
                         <div class="col-sm-9 ">
                             <div class="btn-segmented-control" id="selectHadoopDistro" data-next="#selectRuntime">
                                 <div class="btn-group btn-group-justified">
-                                    <a  class="btn btn-default" role="button">HDP</a>
-                                    <a  class="btn btn-default" role="button">CDH</a>
-                                    <a  class="btn btn-default" role="button">AH</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showHdpServiceList()">HDP</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showCdhServiceList()">CDH</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showAhServiceList()">AH</a>
                                 </div>
                             </div><!-- .btn-segmented-control -->
                         </div><!-- .col-sm-9 -->
@@ -82,19 +82,29 @@
                                             <a class="btn btn-default" role="button">HBase</a>
                                         </div>
                                         <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
-                                            <a  class="btn btn-default" role="button">Hive</a>
-                                            <a  class="btn btn-default" role="button">ZooKeeper</a>
-                                            <a  class="btn btn-default" role="button">HCat</a>
+                                            <a class="btn btn-default" role="button">Hive</a>
+                                            <a class="btn btn-default" role="button">ZooKeeper</a>
+                                            <a class="btn btn-default" role="button">Oozie</a>
                                         </div>
-                                        <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
-                                            <a  class="btn btn-default" role="button">Ganglia</a>
-                                            <a  class="btn btn-default" role="button">Pig</a>
-                                            <a  class="btn btn-default" role="button">Nagios</a>
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="cdhServiceListShow"><!-- 3 buttons per row -->
+                                            <a class="btn btn-default" role="button">Impala</a>
+                                            <a class="btn btn-default" role="button">Oryx</a>
+                                            <a class="btn btn-default" role="button">Nagios</a>
                                         </div>
-                                        <div class="btn-group btn-group-sm btn-group-justified"><!-- 3 buttons per row -->
-                                            <a  class="btn btn-default" role="button">Sqoop</a>
-                                            <a  class="btn btn-default disabled" role="button">MySQL</a>
-                                            <a  class="btn btn-default" role="button">Spark</a>
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="cdhServiceListShow"><!-- 3 buttons per row -->
+                                            <a class="btn btn-default" role="button">Sqoop</a>
+                                            <a class="btn btn-default" role="button">Flume</a>
+                                            <a class="btn btn-default" role="button">Sqoop</a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="hdpServiceListShow"><!-- 3 buttons per row -->
+                                            <a class="btn btn-default" role="button">Ganglia</a>
+                                            <a class="btn btn-default" role="button">Pig</a>
+                                            <a class="btn btn-default" role="button">Nagios</a>
+                                        </div>
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="hdpServiceListShow"><!-- 3 buttons per row -->
+                                            <a class="btn btn-default" role="button">Sqoop</a>
+                                            <a class="btn btn-default disabled" role="button">MySQL</a>
+                                            <a class="btn btn-default" role="button">Spark</a>
                                         </div>
                                     </div><!-- .btn-segmented-control -->
 
