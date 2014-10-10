@@ -34,9 +34,9 @@
                         <div class="col-sm-9 ">
                             <div class="btn-segmented-control" id="selectHadoopDistro" data-next="#selectRuntime">
                                 <div class="btn-group btn-group-justified">
-                                    <a  class="btn btn-default" role="button" ng-click="showHdpServiceList()">HDP</a>
-                                    <a  class="btn btn-default" role="button" ng-click="showCdhServiceList()">CDH</a>
-                                    <a  class="btn btn-default" role="button" ng-click="showAhServiceList()">AH</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showHdpServiceList()">Hortonworks HDP</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showCdhServiceList()">Cloudera CDH</a>
+                                    <a  class="btn btn-default" role="button" ng-click="showAhServiceList()">Apache Hadoop</a>
                                 </div>
                             </div><!-- .btn-segmented-control -->
                         </div><!-- .col-sm-9 -->
