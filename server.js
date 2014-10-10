@@ -11,6 +11,8 @@ var cons = require('consolidate');
 var app = express();
 var cloudbreakClient = new restClient.Client();
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+
 // general config ==============================================================
 
 app.engine('html', cons.underscore);
