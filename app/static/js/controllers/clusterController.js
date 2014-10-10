@@ -63,6 +63,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.cdhServiceListShow = false;
         $scope.ahServiceListShow = false;
 
+        $scope.mr2ServiceListShow = false;
+        $scope.tezServiceListShow = false;
+        $scope.sparkServiceListShow = false;
+
         function initCluster() {
             $scope.cluster = {};
         }
@@ -78,6 +82,24 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                     $scope.cluster.blueprintId = $rootScope.blueprints[0].id;
                 }
             }
+        }
+
+        $scope.showMr2ServiceListShow = function () {
+            $scope.mr2ServiceListShow = true;
+            $scope.tezServiceListShow = false;
+            $scope.sparkServiceListShow = false;
+        }
+
+        $scope.showTezServiceListShow = function () {
+            $scope.mr2ServiceListShow = false;
+            $scope.tezServiceListShow = true;
+            $scope.sparkServiceListShow = false;
+        }
+
+        $scope.showSparkServiceListShow = function () {
+            $scope.mr2ServiceListShow = false;
+            $scope.tezServiceListShow = false;
+            $scope.sparkServiceListShow = true;
         }
 
         $scope.showManualTab = function () {
