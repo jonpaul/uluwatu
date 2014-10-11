@@ -79,25 +79,24 @@
                                         <div class="btn-group btn-group-sm btn-group-justified">
                                             <a class="btn btn-info btn-mandatory disabled" role="button">HDFS</a>
                                             <a class="btn btn-info btn-mandatory disabled" role="button">YARN</a>
-                                            <a class="btn btn-info btn-mandatory disabled" role="button">HBASE</a>
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">MAPREDUCE2</a>
                                         </div>
                                         <div class="btn-group btn-group-sm btn-group-justified" ng-show="sparkServiceListShow">
                                             <a class="btn btn-info btn-mandatory disabled" role="button">ZOOKEEPER</a>
-                                            <a class="btn btn-default" role="button">SPARK</a>
-                                            <a class="btn btn-default" role="button" ng-show="ahServiceListShow">HIVE</a>
-                                            <a class="btn" role="button" ng-show="!ahServiceListShow"></a>
-                                        </div>
-
-                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="mr2ServiceListShow && ahServiceListShow">
-                                            <a class="btn btn-info btn-mandatory disabled" role="button">ZOOKEEPER</a>
-                                            <a class="btn btn-default" role="button" ng-show="ahServiceListShow">HIVE</a>
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">SPARK</a>
                                             <a class="btn" ng-hide></a>
                                         </div>
 
                                         <div class="btn-group btn-group-sm btn-group-justified" ng-show="tezServiceListShow">
                                             <a class="btn btn-default" role="button">HIVE</a>
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">ZOOKEEPER</a>
                                             <a class="btn" ng-hide></a>
-                                            <a class="btn" ng-hide></a>
+                                        </div>
+
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="mr2ServiceListShow && ahServiceListShow">
+                                            <a class="btn btn-info btn-mandatory disabled" role="button">ZOOKEEPER</a>
+                                            <a class="btn btn-default" role="button">HIVE</a>
+                                            <a class="btn btn-default" role="button">HBASE</a>
                                         </div>
 
                                         <div class="btn-group btn-group-sm btn-group-justified" ng-show="cdhServiceListShow && mr2ServiceListShow"><!-- 3 buttons per row -->
