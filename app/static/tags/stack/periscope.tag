@@ -40,11 +40,11 @@
                             <div class="col-sm-5">
                                 <select class="form-control" id="metrics">
                                     <option>– select metric –</option>
-                                    <option>pending_containers</option>
-                                    <option>pending_applications</option>
-                                    <option>lost_nodes</option>
-                                    <option>unhealthy_nodes</option>
-                                    <option>global_resources</option>
+                                    <option>pending containers</option>
+                                    <option>pending applications</option>
+                                    <option>lost nodes</option>
+                                    <option>unhealthy nodes</option>
+                                    <option>global resources</option>
                                 </select>
                             </div><!-- .col-sm-5 -->
                             <div class="col-sm-2">
@@ -117,7 +117,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label" for="metrics01">metrics</label>
                                 <div class="col-sm-9">
-                                    <p id="metrics01" class="form-control-static">pending_containers &gt; 10</p>
+                                    <p id="metrics01" class="form-control-static">pending containers &gt; 10</p>
                                 </div><!-- .col-sm-9 -->
                             </div><!-- .form-group -->
 
