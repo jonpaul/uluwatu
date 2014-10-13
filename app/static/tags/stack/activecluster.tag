@@ -139,7 +139,7 @@
                 <section id="periscope-pane" ng-class="{ 'active': periscopeShow }" ng-show="periscopeShow" class="tab-pane fade in">
                     <div ng-include="'tags/stack/periscope.tag'"></div>
                 </section>
-                <section id="metrics-pane" ng-class="{ 'active': metricsShow }" ng-show="metricsShow" class="tab-pane fade in">
+                <section id="metrics-pane" ng-class="{ 'active': metricsShow }" ng-show="metricsShow" target="_blank" href="http://146.148.73.251/#/dashboard/elasticsearch/Hadoop%20Metrics" targe class="tab-pane fade in">
                 </section>
             </div>
         </div>
