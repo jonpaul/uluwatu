@@ -10,7 +10,7 @@
             <ul class="nav nav-pills nav-justified" role="tablist">
                 <li class="active"><a ng-click="showDetails()" role="tab" data-toggle="tab">details</a></li>
                 <li><a role="tab" ng-click="showPeriscope()" role="tab" data-toggle="tab">autoscaling SLA policies</a></li>
-                <li><a role="tab" ng-click="showMetrics()" role="tab" data-toggle="tab">monitoring</a></li>
+                <li><a role="tab" target="_blank" href="http://146.148.73.251/#/dashboard/elasticsearch/Hadoop%20Metrics">monitoring</a></li>
             </ul>
 
             <div class="tab-content">
@@ -139,7 +139,7 @@
                 <section id="periscope-pane" ng-class="{ 'active': periscopeShow }" ng-show="periscopeShow" class="tab-pane fade in">
                     <div ng-include="'tags/stack/periscope.tag'"></div>
                 </section>
-                <section id="metrics-pane" ng-class="{ 'active': metricsShow }" ng-show="metricsShow" target="_blank" href="http://146.148.73.251/#/dashboard/elasticsearch/Hadoop%20Metrics" targe class="tab-pane fade in">
+                <section id="metrics-pane" ng-class="{ 'active': metricsShow }" ng-show="metricsShow" targe class="tab-pane fade in">
                 </section>
             </div>
         </div>
