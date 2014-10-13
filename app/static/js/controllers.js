@@ -89,23 +89,23 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
         }
 
         $scope.addPanelJQueryEventListeners = function(panel) {
-          addPanelJQueryEventListeners(panel);
+            addPanelJQueryEventListeners(panel);
         }
 
         $scope.addClusterFormJQEventListeners = function() {
-          addClusterFormJQEventListeners();
+            addClusterFormJQEventListeners();
         }
 
         $scope.addActiveClusterJQEventListeners = function() {
-          addActiveClusterJQEventListeners();
+            addActiveClusterJQEventListeners();
         }
 
         $scope.addClusterListPanelJQEventListeners = function() {
-           addClusterListPanelJQEventListeners();
+            addClusterListPanelJQEventListeners();
         }
 
         $scope.addCrudControls = function() {
-          addCrudControls();
+            addCrudControls();
         }
     }
 ]);
@@ -113,7 +113,7 @@ uluwatuControllers.controller('uluwatuController', ['$scope', '$http', 'User', '
 uluwatuControllers.controller('clusterlistController',[ '$scope', function($scope) {
 
     $scope.requestStatusChange = function(cluster) {
-      $scope.$broadcast("STATUS_CHANGE_REQUEST", cluster);
+        $scope.$broadcast("STATUS_CHANGE_REQUEST", cluster);
     }
 
 }]);
