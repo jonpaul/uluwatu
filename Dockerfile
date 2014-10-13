@@ -8,4 +8,6 @@ EXPOSE 3000
 ADD start.sh /uluwatu/
 ADD https://github.com/sequenceiq/uluwatu/archive/strata.zip /uluwatu/
 
+RUN cd /uluwatu && unzip /uluwatu/strata.zip && cd /uluwatu/uluwatu-strata && npm install
+
 CMD ["/uluwatu/start.sh"]

@@ -29,4 +29,4 @@ if [ $MISSING_ENV_VARS ]; then
   exit 1;
 fi
 
-cd /uluwatu && unzip /uluwatu/strata.zip && cd /uluwatu/uluwatu-strata && npm install && node server.js
+cd /uluwatu/uluwatu-strata && node server.js
