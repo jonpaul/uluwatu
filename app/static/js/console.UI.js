@@ -1,6 +1,6 @@
 var $jq = jQuery.noConflict();
 
-function addCrudControls() {
+function addCrudControls(){
 
     $jq("#menu-credential ul li a").click(function () {
         if (!($jq(this).hasClass("not-option") )) {
@@ -49,7 +49,7 @@ function addCrudControls() {
             }
         }
     });
-    $container.isotope({ sortBy: 'state' });
+    $container.isotope({ sortBy : 'state' });
     // sorting
     $jq('#sort-clusters-btn + ul li').on('click', 'a', function (e) {
         var sortByValue = $jq(this).attr('data-sort-by');
@@ -70,18 +70,11 @@ function addCrudControls() {
     function debounce(fn, threshold) {
         var timeout;
         return function debounced() {
-            if (timeout) {
-                clearTimeout(timeout);
-            }
-            function delayed() {
-                fn();
-                timeout = null;
-            }
-
+            if (timeout) { clearTimeout(timeout); }
+            function delayed() { fn(); timeout = null; }
             timeout = setTimeout(delayed, threshold || 100);
         }
     }
-
     // notification/filter field clearing on focus for filtering
     $jq("#notification-n-filtering").focusin(function () {
         $jq(this).val("").trigger("keyup")
@@ -99,7 +92,7 @@ function addCrudControls() {
     // Bootstrap carousel as clusters / cluster details / create cluster slider init
     $jq('.carousel').carousel('pause');
     // show cluster details
-    $jq(document).on("click", ".cluster h4 .btn-cluster", function () {
+    $jq(document).on("click", ".cluster h4 .btn-cluster", function() {
         $jq('.carousel').carousel(1);
         $jq('.carousel').on('slid.bs.carousel', function () {
             // unbind event
@@ -140,7 +133,7 @@ function addClusterFormJQEventListeners() {
         e.stopPropagation();
         var panel = $jq(this).parent();		// panel
         var offset = panel.offset().top;
-        if (offset) {
+        if(offset) {
             $jq('html,body').animate({
                 scrollTop: offset - 64
             }, 500);
@@ -178,6 +171,46 @@ function addClusterFormJQEventListeners() {
         $jq('#sort-clusters-btn').removeClass('disabled');
         $jq("#notification-n-filtering").prop("disabled", false);
     });
+
+    $jq('.btn-segmented-control a').click(function (e) {
+        var selected = 'btn-info';
+        var active = 'btn-default';
+        var control = $jq(this).parent().parent();
+        e.preventDefault();
+        e.stopPropagation();
+        if (!control.hasClass('multiselect')) {
+            control.find('a').each(function () {
+                $jq(this).removeClass(selected).addClass(active);
+            });
+            $jq(this).removeClass(active).addClass(selected);
+        } else {
+            if ($jq(this).hasClass(active)) {
+                $jq(this).removeClass(active).addClass(selected);
+            } else {
+                $jq(this).removeClass(selected).addClass(active);
+            }
+        }
+        // show next selector block
+        var nextSelector = control.attr('data-next');
+        if (nextSelector) {
+            $jq(nextSelector).collapse('show');
+            $jq(nextSelector).on('shown.bs.collapse', function (e) {
+                e.stopPropagation();
+                // scroll page
+                scrollToPanelTop($jq(this).parent().prev().prev());
+            });
+        }
+    });
+
+    function scrollToPanelTop(panel) {
+        var offset = panel.offset().top;
+        if (offset) {
+            $jq('html,body').animate({
+                scrollTop: offset - 64	// - height of cluster toolbar
+            }, 500);
+        }
+    };
+
 }
 
 function addActiveClusterJQEventListeners() {
@@ -194,7 +227,7 @@ function addActiveClusterJQEventListeners() {
         e.stopPropagation();
         var panel = $jq(this).parent();		// panel
         var offset = panel.offset().top;
-        if (offset) {
+        if(offset) {
             $jq('html,body').animate({
                 scrollTop: offset - 64
             }, 500);
@@ -230,7 +263,7 @@ function addActiveClusterJQEventListeners() {
     });
 }
 
-function addPanelJQueryEventListeners(panel) {
+function addPanelJQueryEventListeners(panel){
     $jq('#panel-' + panel + ' .panel-heading > h5 > a').click(function (e) {
         e.preventDefault();
         accordion = $jq(this).attr("data-parent");
@@ -244,7 +277,7 @@ function addPanelJQueryEventListeners(panel) {
         e.stopPropagation();
         var panel = $jq(this).parent();		// panel
         var offset = panel.offset().top;
-        if (offset) {
+        if(offset) {
             $jq('html,body').animate({
                 scrollTop: offset - 64
             }, 500);
@@ -273,7 +306,7 @@ function addPanelJQueryEventListeners(panel) {
         // scroll
         var panel = $jq(this).parent().prev();	// btn-row-over-panel
         var offset = panel.offset().top;
-        if (offset) {
+        if(offset) {
             $jq('html,body').animate({
                 scrollTop: offset - 64
             }, 500);
@@ -294,12 +327,12 @@ function addPanelJQueryEventListeners(panel) {
     $jq('#panel-' + panel + '-collapse').on('shown.bs.collapse', function (e) {
         // button switch
         var thisPanel = $jq(this);
-        if (thisPanel.context.id == e.target.id) {
+        if(thisPanel.context.id == e.target.id) {
             thisPanel.parent().find('.panel-heading .btn i').removeClass('fa-angle-down').addClass('fa-angle-up');
             // scroll
             var panel = $jq(this).parent().parent();	// panel
             var offset = panel.offset().top;
-            if (offset) {
+            if(offset) {
                 $jq('html,body').animate({
                     scrollTop: offset - 64
                 }, 500);
@@ -310,7 +343,7 @@ function addPanelJQueryEventListeners(panel) {
     $jq('#panel-' + panel + '-collapse').on('hidden.bs.collapse', function (e) {
         // button switch
         var thisPanel = $jq(this);
-        if (thisPanel.context.id == e.target.id) {
+        if(thisPanel.context.id == e.target.id) {
             $jq(this).parent().find('.panel-heading .btn i').removeClass('fa-angle-up').addClass('fa-angle-down');
         }
     });

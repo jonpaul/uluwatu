@@ -147,7 +147,7 @@
 
 
 </div>
-<div class="modal" id="modal-stop-cluster" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
+<div class="modal fade" id="modal-stop-cluster" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <!-- .modal-header -->
@@ -170,7 +170,7 @@
     </div>
 </div>
 
-<div class="modal" id="modal-start-cluster" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
+<div class="modal fade" id="modal-start-cluster" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <!-- .modal-header -->
@@ -193,7 +193,7 @@
     </div>
 </div>
 
-<div class="modal" id="modal-terminate" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
+<div class="modal fade" id="modal-terminate" tabindex="-1" role="dialog" aria-labelledby="modal01-title" aria-hidden="true">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <!-- .modal-header -->
