@@ -122,6 +122,12 @@
                                         </div>
 
                                         <div class="btn-group btn-group-sm btn-group-justified" ng-show="hdpServiceListShow && mr2ServiceListShow"><!-- 3 buttons per row -->
+                                            <a class="btn btn-default" role="button">GANGLIA</a>
+                                            <a class="btn btn-default" role="button">HBASE</a>
+                                            <a class="btn btn-default" role="button">HIVE</a>
+                                        </div>
+
+                                        <div class="btn-group btn-group-sm btn-group-justified" ng-show="hdpServiceListShow && mr2ServiceListShow"><!-- 3 buttons per row -->
                                             <a class="btn btn-default" role="button">NAGIOS</a>
                                             <a class="btn btn-default" role="button">OOZIE</a>
                                             <a class="btn btn-default" role="button">PIG</a>
