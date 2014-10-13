@@ -3,8 +3,8 @@
 var log = log4javascript.getLogger("clusterController-logger");
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster) {
+angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', '$interval',
+    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, $interval) {
 
         $rootScope.ledStyles = {
             "REQUESTED": "state2-run-blink",
@@ -46,13 +46,12 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             "DELETE_COMPLETED": $rootScope.error_msg.title_delete_completed
         }
 
-        UluwatuCluster.query(function (clusters) {
-            $rootScope.clusters = clusters;
-            $scope.$parent.order('name', false);
-        });
 
-        $scope.cluster = initCluster();
+        $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
+        getUluwatuClusters();
+
         $rootScope.activeCluster = {};
+        $scope.cluster = {};
         $scope.clusterCreationForm = {};
         $scope.blueprintSelectionPaneShow = false;
         $scope.manualSelectionPaneShow = true;
@@ -252,8 +251,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             });
         }
 
-        $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
-
         function statusChangeListener(event, cluster) {
             if (cluster.status == "STOPPED") {
                 $scope.startCluster(cluster);
@@ -261,4 +258,16 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $scope.stopCluster(cluster);
             }
         }
+
+        function getUluwatuClusters(){
+          UluwatuCluster.query(function (clusters) {
+              $rootScope.clusters = clusters;
+          });
+        }
+
+        var refresher = $interval(getUluwatuClusters, 10000);
+        $scope.$on('$destroy', function() {
+            $interval.cancel(refresher);
+        });
+
     }]);
