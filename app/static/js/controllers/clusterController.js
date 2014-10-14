@@ -47,8 +47,6 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         }
 
 
-        $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
-        getUluwatuClusters();
 
         $rootScope.activeCluster = {};
         $scope.cluster = {};
@@ -66,6 +64,8 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         $scope.mr2ServiceListShow = false;
         $scope.tezServiceListShow = false;
         $scope.sparkServiceListShow = false;
+
+        getUluwatuClusters();
 
         function initCluster() {
             $scope.cluster = {};
@@ -262,6 +262,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         function getUluwatuClusters(){
           UluwatuCluster.query(function (clusters) {
               $rootScope.clusters = clusters;
+              $scope.$parent.orderClusters();
           });
         }
 
