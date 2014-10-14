@@ -3,10 +3,10 @@
 var log = log4javascript.getLogger("clusterController-logger");
 var $jq = jQuery.noConflict();
 
-angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster',
-    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster) {
+angular.module('uluwatuControllers').controller('clusterController', ['$scope', '$rootScope', '$filter', 'UluwatuCluster', 'GlobalStack', 'Cluster', '$interval',
+    function ($scope, $rootScope, $filter, UluwatuCluster, GlobalStack, Cluster, $interval) {
 
-        $scope.ledStyles = {
+        $rootScope.ledStyles = {
             "REQUESTED": "state2-run-blink",
             "CREATE_IN_PROGRESS": "state2-run-blink",
             "UPDATE_IN_PROGRESS": "state2-run-blink",
@@ -21,7 +21,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             "STOP_IN_PROGRESS": "state1-ready-blink"
         }
 
-        $scope.buttonStyles = {
+        $rootScope.buttonStyles = {
             "REQUESTED": "fa-pause",
             "CREATE_IN_PROGRESS": "fa-pause",
             "UPDATE_IN_PROGRESS": "fa-pause",
@@ -36,7 +36,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             "STOP_IN_PROGRESS": "fa-refresh"
         }
 
-        $scope.titleStatus = {
+        $rootScope.titleStatus = {
             "REQUESTED": $rootScope.error_msg.title_requested,
             "CREATE_IN_PROGRESS": $rootScope.error_msg.title_create_in_progress,
             "UPDATE_IN_PROGRESS": $rootScope.error_msg.title_update_in_progress,
@@ -46,12 +46,12 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             "DELETE_COMPLETED": $rootScope.error_msg.title_delete_completed
         }
 
-        UluwatuCluster.query(function (clusters) {
-            $rootScope.clusters = clusters;
-        });
 
-        $scope.cluster = initCluster();
+        $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
+        getUluwatuClusters();
+
         $rootScope.activeCluster = {};
+        $scope.cluster = {};
         $scope.clusterCreationForm = {};
         $scope.blueprintSelectionPaneShow = false;
         $scope.manualSelectionPaneShow = true;
@@ -218,24 +218,38 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
         }
 
         $scope.stopCluster = function (activeCluster) {
-            var newStatus = {"status": "STOPPED"};
-            Cluster.update({id: activeCluster.id}, newStatus, function (success) {
-                GlobalStack.update({id: activeCluster.id}, newStatus, function (result) {
-                    $rootScope.activeCluster.status = "STOP_REQUESTED";
+            var newStatus = {"status":"STOPPED"};
+            Cluster.update({id: activeCluster.id}, newStatus, function(success){
+
+                GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
+                    activeCluster.status = "STOP_REQUESTED";
+                }, function(error) {
+                  $scope.modifyStatusMessage($rootScope.error_msg.cluster_stop_failed + ": " + error.data.message);
+                  $scope.modifyStatusClass("has-error");
                 });
+
+            }, function(error) {
+              $scope.modifyStatusMessage($rootScope.error_msg.cluster_stop_failed + ": " + error.data.message);
+              $scope.modifyStatusClass("has-error");
             });
         }
 
         $scope.startCluster = function (activeCluster) {
-            var newStatus = {"status": "STARTED"};
-            GlobalStack.update({id: activeCluster.id}, newStatus, function (result) {
-                Cluster.update({id: activeCluster.id}, newStatus, function (success) {
-                    $rootScope.activeCluster.status = "START_REQUESTED";
+            var newStatus = {"status":"STARTED"};
+            GlobalStack.update({id: activeCluster.id}, newStatus, function(result){
+
+                Cluster.update({id: activeCluster.id}, newStatus, function(success){
+                    activeCluster.status = "START_REQUESTED";
+                }, function(error) {
+                  $scope.modifyStatusMessage($rootScope.error_msg.cluster_start_failed + ": " + error.data.message);
+                  $scope.modifyStatusClass("has-error");
                 });
+
+            }, function(error) {
+              $scope.modifyStatusMessage($rootScope.error_msg.cluster_start_failed + ": " + error.data.message);
+              $scope.modifyStatusClass("has-error");
             });
         }
-
-        $scope.$on("STATUS_CHANGE_REQUEST", statusChangeListener);
 
         function statusChangeListener(event, cluster) {
             if (cluster.status == "STOPPED") {
@@ -244,4 +258,16 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
                 $scope.stopCluster(cluster);
             }
         }
+
+        function getUluwatuClusters(){
+          UluwatuCluster.query(function (clusters) {
+              $rootScope.clusters = clusters;
+          });
+        }
+
+        var refresher = $interval(getUluwatuClusters, 10000);
+        $scope.$on('$destroy', function() {
+            $interval.cancel(refresher);
+        });
+
     }]);
