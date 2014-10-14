@@ -251,10 +251,10 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
             });
         }
 
-        function statusChangeListener(event, cluster) {
-            if (cluster.status == "STOPPED") {
+        $scope.requestStatusChange = function(cluster) {
+            if(cluster.status == "STOPPED") {
                 $scope.startCluster(cluster);
-            } else if (cluster.status == "AVAILABLE") {
+            } else if(cluster.status == "AVAILABLE") {
                 $scope.stopCluster(cluster);
             }
         }
