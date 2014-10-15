@@ -181,7 +181,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="selectTemplate">Template</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-offset-1 col-sm-8 selectCredentialNTemplate" style="height: auto;">
                             <select class="form-control" id="selectTemplate" ng-model="cluster.templateId" required >
                                 <option ng-repeat="template in $root.templates | orderBy:'name'" data-value="{{template.id}}" value="{{template.id}}" id="{{template.id}}" ng-if="template.cloudPlatform == activecloudPlatform">{{template.name}}
                                 </option>
@@ -191,7 +191,7 @@
 
                     <div class="form-group">
                         <label class="col-sm-3 control-label" for="selectCredential">Credential</label>
-                        <div class="col-sm-9">
+                        <div class="col-sm-offset-1 col-sm-8 selectCredentialNTemplate" style="height: auto;">
                             <select class="form-control" id="selectCredential" ng-model="cluster.credentialId" required >
                                 <option ng-repeat="credential in $root.credentials | orderBy:'name'" data-value="{{credential.id}}" value="{{credential.id}}" id="{{credential.id}}" ng-if="credential.cloudPlatform == activecloudPlatform">{{credential.name}}
                                 </option>

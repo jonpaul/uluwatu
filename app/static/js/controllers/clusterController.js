@@ -57,6 +57,7 @@ angular.module('uluwatuControllers').controller('clusterController', ['$scope', 
 
         function initCluster() {
             $scope.cluster = {};
+            $scope.selectBlueprint();
         }
 
         $scope.selectBlueprint = function () {
