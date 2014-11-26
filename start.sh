@@ -23,8 +23,13 @@ if [ -z "$ULU_OAUTH_CLIENT_SECRET" ]; then
   MISSING_ENV_VARS=true;
 fi
 
-if [ -z "$ULU_OAUTH_REDIRECT_URI" ]; then
-  echo ULU_OAUTH_REDIRECT_URI must be set;
+if [ -z "$ULU_HOST_ADDRESS" ]; then
+  echo ULU_HOST_ADDRESS must be set;
+  MISSING_ENV_VARS=true;
+fi
+
+if [ -z "$ULU_SULTANS_ADDRESS" ]; then
+  echo ULU_SULTANS_ADDRESS must be set;
   MISSING_ENV_VARS=true;
 fi
 
