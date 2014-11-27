@@ -1,5 +1,6 @@
 #!/bin/bash
 : ${ULU_ZIP:=master}
+: ${ULU_FOLDER:=$ULU_ZIP}
 
 ULU_URL=https://github.com/sequenceiq/uluwatu/archive/$ULU_ZIP.zip
 
@@ -37,4 +38,4 @@ if [ $MISSING_ENV_VARS ]; then
   exit 1;
 fi
 
-cd /uluwatu && curl -LO $ULU_URL && unzip /uluwatu/$ULU_ZIP && cd /uluwatu/uluwatu-$ULU_ZIP && npm install && node server.js
+cd /uluwatu && curl -LO $ULU_URL && unzip /uluwatu/$ULU_ZIP && cd /uluwatu/uluwatu-$ULU_FOLDER && npm install && node server.js
