@@ -49,7 +49,7 @@ angular.module('uluwatuControllers').controller('credentialController', ['$scope
                 collapseCreateCredentialFormPanel();
                 $rootScope.credentialInCreation = false;
             }, function (error) {
-                $scope.modifyStatusMessage($rootScope.error_msg.aws_credential_failed + error.data.message);
+                $scope.modifyStatusMessage($rootScope.error_msg.aws_credential_failed + error.error_description);
                 $scope.modifyStatusClass("has-error");
                 $rootScope.credentialInCreation = false;
                 // $scope.isFailedCreation = true;
@@ -69,7 +69,7 @@ angular.module('uluwatuControllers').controller('credentialController', ['$scope
                 $scope.azureCredentialForm.$setPristine();
                 collapseCreateCredentialFormPanel();
             }, function (error) {
-                $scope.modifyStatusMessage($rootScope.error_msg.azure_credential_failed + error.data.message);
+                $scope.modifyStatusMessage($rootScope.error_msg.azure_credential_failed + error.error_description);
                 $scope.modifyStatusClass("has-error");
             });
         }
@@ -94,7 +94,7 @@ angular.module('uluwatuControllers').controller('credentialController', ['$scope
                       $scope.gccCredentialForm.$setPristine();
                       collapseCreateCredentialFormPanel();
                   }, function (error) {
-                      $scope.modifyStatusMessage($rootScope.error_msg.gcc_credential_failed + error.data.message);
+                      $scope.modifyStatusMessage($rootScope.error_msg.gcc_credential_failed + error_description);
                       $scope.modifyStatusClass("has-error");
                       $rootScope.credentialInCreation = false;
                   });
@@ -112,7 +112,7 @@ angular.module('uluwatuControllers').controller('credentialController', ['$scope
                 $scope.modifyStatusMessage($rootScope.error_msg.credential_delete_success1 + credential.id + $rootScope.error_msg.credential_delete_success2);
                 $scope.modifyStatusClass("has-success");
             }, function(error){
-                $scope.modifyStatusMessage(error.data.message);
+                $scope.modifyStatusMessage(error_description);
                 $scope.modifyStatusClass("has-error");
             });
 
